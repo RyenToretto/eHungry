@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import App from './App'
-import store from "./store"
+
+import router from "./router"
+import store from "./vuex/store"
 
 new Vue({
   el: '#root',
-  components: {
-    App
-  },
-  template: '<App/>',
-  store    // 配置路由器
+  render: createElement=>createElement(App),
+  router,    // 配置路由器
+  store
 });
