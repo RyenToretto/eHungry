@@ -1,0 +1,39 @@
+button {
+  color: #000;
+  background-color: #94b5b2;
+  border: 0 none;
+  border-radius: 6px;
+}
+button:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 88px #6d5b2a;
+}
+button:active {
+  transform: scale(1);
+  box-shadow: 0 0 40px #6d5b2a;
+}
+input {
+  background-color: #b76f59;
+  border: 0 none;
+}
+.unSelectedAble {
+/* 内容不可以被选中 */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.clearfix {
+  zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}

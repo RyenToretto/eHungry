@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+        <title>Slide</title>
+        
+        <style type="text/css">
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            
+            a {
+                text-decoration: none;
+            }
+            
+            ul,
+            ol {
+                list-style: none;
+            }
+            
+            input {
+                outline: none;
+            }
+            
+            img {
+                display: block;
+            }
+            
+            html,
+            body {
+                height: 100%;
+                overflow: hidden;
+            }
+            
+            /**** ****/
+            #wrap {
+                width: 100%;
+                height: 100%;
+                
+                font: 14px Helvetica, Arial, sans-serif;
+                background-color: #96b377;
+            }
+            
+            #content {
+                position: relative;
+            }
+        </style>
+    </head>
+    
+    <body>
+        
+        <!--模拟手机屏幕-->
+        <section id="wrap">
+            <div id="content">
+                a<br />b<br />c<br />d<br />
+                e<br />f<br />g<br />1<br />
+                2<br />3<br />4<br />5<br />
+                6<br />7<br />8<br />a<br />
+                b<br />c<br />d<br />e<br />
+                f<br />g<br />1<br />2<br />
+                3<br />4<br />5<br />6<br />
+                7<br />8<br />a<br />b<br />
+                c<br />d<br />e<br />f<br />
+                g<br />1<br />2<br />3<br />
+                4<br />5<br />6<br />7<br />8<br />
+            </div>
+        </section>
+        
+        <!-- javascript 代码 -->
+        <script type="text/javascript">
+            // 取消默认行为
+            document.addEventListener("touchstart", function(e){
+                e.preventDefault();
+            }, {passive: false});
+            
+            // 点透处理
+            
+            // 适配
+            
+            var wrap = document.querySelector("#wrap");
+            var content = document.querySelector("#content");
+            for(var i=0; i<100; i++){
+                content.innerHTML += i+"<br />";
+            };
+            
+            console.log("视觉视口"+window.innerWidth+"*"+window.innerHeight);
+            console.log("布局视口"+document.documentElement.clientWidth+"*"+document.documentElement.clientHeight);
+            
+            bindEleSlide(content, wrap);
+            
+            // 竖向滑屏事件      滑动元素  父元素     回调函数
+            function bindEleSlide(slideEle, parentEle, callBack){
+                var oldFingerY = 0;
+                var oldEleY = 0;
+                
+                parentEle.addEventListener("touchstart", function(e){
+                    finger = e.changedTouches;
+                    
+                    oldFingerY = finger[0].clientY;
+                    oldEleY = slideEle.offsetTop;
+                }, false);
+                
+                parentEle.addEventListener("touchmove", function(e){
+                    finger = e.changedTouches;
+                    
+                    var newFingerY =  finger[0].clientY;
+                    var newEleY = oldEleY + (newFingerY - oldFingerY);
+                    if(newEleY > 0){
+                        newEleY = 0;
+                    }else if(newEleY < document.documentElement.clientHeight - slideEle.clientHeight){
+                        newEleY = document.documentElement.clientHeight - slideEle.clientHeight;
+                    }
+                    
+                    slideEle.style.top = newEleY+"px";
+                    
+                    callBack && callBack();
+                }, false);
+            };
+        
+        </script>
+    </body>
+</html>

@@ -1,0 +1,346 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-size: 0.7rem;
+}
+html #wrap,
+body #wrap {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-bottom: 50px;
+  background-color: #f5f5f5;
+}
+html #wrap .home_page,
+body #wrap .home_page,
+html #wrap .search_page,
+body #wrap .search_page,
+html #wrap .goods_page,
+body #wrap .goods_page,
+html #wrap .user_page,
+body #wrap .user_page {
+  display: none;
+  width: 100%;
+  padding-bottom: 50px;
+  background-color: #f5f5f5;
+}
+html #wrap .home_page.active,
+body #wrap .home_page.active,
+html #wrap .search_page.active,
+body #wrap .search_page.active,
+html #wrap .goods_page.active,
+body #wrap .goods_page.active,
+html #wrap .user_page.active,
+body #wrap .user_page.active {
+  display: block;
+}
+html #wrap .home_page,
+body #wrap .home_page {
+  padding-top: 45px;
+}
+html #wrap .home_page #header,
+body #wrap .home_page #header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 45px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #02a774;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+html #wrap .home_page #header a,
+body #wrap .home_page #header a {
+  color: #fff;
+}
+html #wrap .home_page #header #search_btn,
+body #wrap .home_page #header #search_btn {
+  margin-left: 15px;
+  height: 25px;
+}
+html #wrap .home_page #header i,
+body #wrap .home_page #header i {
+  font-size: 25px;
+}
+html #wrap .home_page #header #pos_info,
+body #wrap .home_page #header #pos_info {
+  font-size: 20px;
+  width: 50%;
+  margin-left: 50px;
+}
+html #wrap .home_page #header #login_register,
+body #wrap .home_page #header #login_register {
+  margin-right: 15px;
+  font-size: 14px;
+}
+html #wrap .home_page #shop_nav,
+body #wrap .home_page #shop_nav {
+  width: 100%;
+  background-color: #fff;
+}
+html #wrap .home_page #shop_nav >h3,
+body #wrap .home_page #shop_nav >h3 {
+  height: 30px;
+  color: #999;
+}
+html #wrap .home_page #shop_nav >h3 i,
+body #wrap .home_page #shop_nav >h3 i {
+  font-size: 16px;
+}
+html #wrap .home_page #shop_nav >h3 span,
+body #wrap .home_page #shop_nav >h3 span {
+  font-size: 14px;
+}
+html #wrap .home_page #shop_nav >ul,
+body #wrap .home_page #shop_nav >ul {
+  width: 100%;
+}
+html #wrap .home_page #shop_nav >ul >li,
+body #wrap .home_page #shop_nav >ul >li {
+  width: 100%;
+  position: relative;
+}
+html #wrap .home_page #shop_nav >ul >li:after,
+body #wrap .home_page #shop_nav >ul >li:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: #f1f1f1;
+}
+html #wrap .home_page #shop_nav >ul >li >a,
+body #wrap .home_page #shop_nav >ul >li >a {
+  width: 100%;
+  padding: 15px 8px;
+  display: flex;
+  justify-content: space-between;
+}
+html #wrap .home_page #shop_nav >ul >li >a img,
+body #wrap .home_page #shop_nav >ul >li >a img {
+  width: 23%;
+  height: 75px;
+}
+html #wrap .home_page #shop_nav >ul >li >a .shop_info,
+body #wrap .home_page #shop_nav >ul >li >a .shop_info {
+  width: 77%;
+  height: 75px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+html #wrap .home_page #shop_nav >ul >li >a .shop_info .info_top,
+body #wrap .home_page #shop_nav >ul >li >a .shop_info .info_top {
+  margin-right: 8px;
+  color: #333;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+}
+html #wrap .home_page #shop_nav >ul >li >a .shop_info .info_top >div:first-child,
+body #wrap .home_page #shop_nav >ul >li >a .shop_info .info_top >div:first-child {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+html #wrap .home_page #shop_nav >ul >li >a .shop_info .info_top >div:first-child span:first-child,
+body #wrap .home_page #shop_nav >ul >li >a .shop_info .info_top >div:first-child span:first-child {
+  width: 27px;
+  padding: 2px;
+  margin-right: 5px;
+  font-size: 12px;
+  background-color: #ffd930;
+}
+html #wrap .home_page #shop_nav >ul >li >a .shop_info .info_top >div:last-child,
+body #wrap .home_page #shop_nav >ul >li >a .shop_info .info_top >div:last-child {
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+html #wrap .home_page #shop_nav >ul >li >a .shop_info .info_top >div:last-child span,
+body #wrap .home_page #shop_nav >ul >li >a .shop_info .info_top >div:last-child span {
+  padding: 0 2px;
+  border: 1px solid #f1f1f1;
+  border-radius: 2px;
+  color: #999;
+  font-size: 10px;
+}
+html #wrap .home_page #shop_nav >ul >li >a .shop_info .info_center,
+body #wrap .home_page #shop_nav >ul >li >a .shop_info .info_center {
+  width: 100%;
+  color: #666;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+html #wrap .home_page #shop_nav >ul >li >a .shop_info .info_center div:last-child,
+body #wrap .home_page #shop_nav >ul >li >a .shop_info .info_center div:last-child {
+  padding: 1px;
+  margin-right: 16px;
+  color: #02a774;
+  font-size: 12px;
+  border-radius: 2px;
+  border: 1px solid #02a774;
+  transform: scale(0.7);
+}
+html #wrap .home_page #shop_nav >ul >li >a .shop_info .info_bottom,
+body #wrap .home_page #shop_nav >ul >li >a .shop_info .info_bottom {
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+html #wrap .search_page #search_title,
+body #wrap .search_page #search_title {
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+  background-color: #02a774;
+  font-size: 22px;
+  text-align: center;
+}
+html #wrap .search_page #search_box,
+body #wrap .search_page #search_box {
+  width: 100%;
+  height: 60px;
+  box-sizing: border-box;
+  padding: 12px 8px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+html #wrap .search_page #search_box input,
+body #wrap .search_page #search_box input {
+  width: 79%;
+  height: 35px;
+  box-sizing: border-box;
+  padding: 0 4px;
+  border: 4px solid #f2f2f2;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  background-color: #f2f2f2;
+}
+html #wrap .search_page #search_box button,
+body #wrap .search_page #search_box button {
+  width: 18%;
+  height: 35px;
+  padding: 0 4px;
+  border: 4px solid #02a774;
+  border-radius: 2px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #02a774;
+}
+html #wrap .goods_page #goods_title,
+body #wrap .goods_page #goods_title {
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+  background-color: #02a774;
+  font-size: 22px;
+  text-align: center;
+}
+html #wrap .goods_page #goods_box,
+body #wrap .goods_page #goods_box {
+  padding-top: 95px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+html #wrap .goods_page #goods_box img,
+body #wrap .goods_page #goods_box img {
+  display: block;
+  width: 60%;
+  height: 30%;
+}
+html #wrap .goods_page #goods_box p,
+body #wrap .goods_page #goods_box p {
+  font-size: 17px;
+  color: #6a6a6a;
+  padding: 10px 0;
+}
+html #wrap .goods_page #goods_box button,
+body #wrap .goods_page #goods_box button {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #fff;
+  background: #02a774;
+}
+html #wrap #user_page #user_title,
+body #wrap #user_page #user_title {
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+  background-color: #02a774;
+  font-size: 22px;
+  text-align: center;
+}
+html #footer,
+body #footer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 50px;
+  margin-top: -50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 1rem;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+html #footer >div,
+body #footer >div {
+  width: 4rem;
+  height: 100%;
+}
+html #footer >div >a,
+body #footer >div >a {
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  color: #999;
+}
+html #footer >div >a.active,
+body #footer >div >a.active {
+  color: #02a774;
+}
+html #footer >div >a span,
+body #footer >div >a span {
+  display: block;
+  height: 25px;
+  line-height: 25px;
+  margin-top: -4px;
+}
+html #footer >div >a .iconfont,
+body #footer >div >a .iconfont {
+  display: block;
+  height: 25px;
+  margin-top: 6px;
+  line-height: 25px;
+  font-size: 22px;
+}

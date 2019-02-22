@@ -1,0 +1,52 @@
+html,
+body,
+header,
+section,
+nav,
+footer,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+i,
+b,
+em,
+strong,
+div,
+span,
+p,
+a,
+ul,
+ol,
+li,
+br,
+hr,
+table,
+tr,
+th,
+td,
+tbody,
+thead,
+tfoot,
+select,
+label,
+input,
+textarea {
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+ul,
+ol {
+  list-style: none;
+}
+input {
+  outline: none;
+}
+img {
+  display: block;
+}
