@@ -1,25 +1,31 @@
-import axios from "axios"
 import {
-  REQUESTING,
-  REQUEST_SUCCESS,
-  REQUEST_ERROR
+  TOLOGINREGISTER,
+  SAVE_POSITION,
+  SAVE_CATEGORY,
+  SAVE_SHOPS
 } from "./mutation-type"
 
+import {requestPosition, requestCategory, requestShops} from "../../api"
+
 export default {
-  search({commit}, searchName){
-    commit(REQUESTING);
-    const url = "https://api.github.com/search/users?q="+searchName;
-    axios.get(url).then((response=>{
-      const result = response.data;
-      const {login, avatar_url, html_url} = result.items[0];
-      const users = result.items.map(user=>({
-        name: user.login,
-        homeUrl: user.html_url,
-        headImg: user.avatar_url,
-      }));
-      commit(REQUEST_SUCCESS, users)
-    })).catch(errorMsg=>{
-      commit(REQUEST_ERROR, errorMsg);
-    })
+  async getPosition({commit, state}){
+    const {longitude, latitude} = state
+    const result = await requestPosition(longitude, latitude)
+    if(result.code === 0){
+      commit(SAVE_POSITION, result.data)
+    }
+  },
+  async getCategorys({commit}){
+    const result = await requestCategory()
+    if(result.code === 0){
+      commit(SAVE_CATEGORY, result.data)
+    }
+  },
+  async getShops({commit, state}){
+    const {longitude, latitude} = state
+    const result = await requestShops(longitude, latitude)
+    if(result.code === 0){
+      commit(SAVE_SHOPS, result.data)
+    }
   }
 }

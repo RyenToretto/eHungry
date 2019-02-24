@@ -1,3 +1,3 @@
-export const REQUESTING = "requesting";
-export const REQUEST_SUCCESS = "request_success";
-export const REQUEST_ERROR = "request_error";
+export const SAVE_POSITION = "save_position"
+export const SAVE_CATEGORY = "save_category"
+export const SAVE_SHOPS = "save_shops"

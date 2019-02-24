@@ -1,22 +1,19 @@
 import {
-  REQUESTING,
-  REQUEST_SUCCESS,
-  REQUEST_ERROR
+  SAVE_POSITION,
+  SAVE_CATEGORY,
+  SAVE_SHOPS
 } from "./mutation-type"
 
 export default {
-  [REQUESTING] (state) {
-    state.isFirst = false;
-    state.isSearching = true;
-    state.errorMsg = "";
-    state.users = [];
+  [SAVE_POSITION] (state, position) {
+    state.position = position
   },
-  [REQUEST_SUCCESS] (state, users) {
-    state.isSearching = false;
-    state.users = users;
+  
+  [SAVE_CATEGORY] (state, categorys) {
+    state.categorys = categorys
   },
-  [REQUEST_ERROR] (state, errorMsg) {
-    state.isSearching = false;
-    state.errorMsg = errorMsg;
+  
+  [SAVE_SHOPS] (state, shops) {
+    state.shops = shops
   }
 }

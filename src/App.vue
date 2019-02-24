@@ -1,21 +1,17 @@
 <template>
   <div>
     <router-view></router-view>
-    <FooterNav></FooterNav>
+    <FooterNav v-show="$route.meta.showFooter"></FooterNav>
   </div>
 </template>
 
 <script>
-  // import {mapState} from "vuex"
   import FooterNav from "./components/FooterNav/FooterNav"
   
   export default {
     name: 'App',
     components: {
       FooterNav
-    },
-    computed: {
-    
     }
   }
 </script>
