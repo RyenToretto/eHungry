@@ -9,7 +9,9 @@
   export default {
     name: 'Info',
     computed: {
-      ...mapState(["shopInfo"])
+      ...mapState({
+        "shopInfo": state=>state.shop.info
+      })
     }
   }
 </script>

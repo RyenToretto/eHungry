@@ -24,6 +24,7 @@ export default new VueRouter({
         {path:"/shop/goods", component: Goods},
         {path:"/shop/ratings", component: Ratings},
         {path:"/shop/info", component: Info},
+        {path:"/shop", redirect: "/shop/goods"},
       ]
     },
     

@@ -99,11 +99,15 @@
 </template>
 
 <script>
+  import {Toast} from "mint-ui"
   import {mapState} from "vuex"
+  
   export default {
     name: 'Personal',
     computed: {
-      ...mapState(["userInfo"])
+      ...mapState({
+        "userInfo": state=>state.user.userInfo
+      })
     },
     methods: {
       toPage () {
@@ -113,6 +117,7 @@
       },
       async justLogout () {
         await this.$store.dispatch("logout")
+        Toast("已退出登录")
       }
     }
   }

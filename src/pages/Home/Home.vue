@@ -51,7 +51,10 @@
       ShopList
     },
     computed: {
-      ...mapState(["position", "categorys"]),
+      ...mapState({
+        "position": state=>state.home.position,
+        "categorys": state=>state.home.categorys,
+      }),
       categorysArr () {
         const {categorys} = this
         const result = []

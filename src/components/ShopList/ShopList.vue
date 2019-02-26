@@ -66,7 +66,9 @@
       }
     },
     computed: {
-      ...mapState(["shops"])
+      ...mapState({
+        "shops": state=>state.shop.shops
+      }),
     },
     async mounted () {
       await this.$store.dispatch("getShops")
