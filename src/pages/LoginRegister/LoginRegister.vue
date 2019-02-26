@@ -12,37 +12,47 @@
           <form>
             <div :class="{on: isMsgLogin}" >
               <section class="login_message">
-                <input type="tel" maxlength="11" placeholder="手机号">
-                <button disabled="disabled" class="get_verification">获取验证码</button>
+                <input type="tel" maxlength="11" placeholder="手机号" v-model="user_phone">
+                  <button
+                    :disabled="!isRightPhone || isWaiting"
+                    class="get_verification"
+                    :class="{black_word: (isRightPhone && !isWaiting)}"
+                    @click.prevent="waiting_30"
+                  >
+                    {{thirtySecond>0?("已发送"+thirtySecond+"s"):"获取验证码"}}
+                  </button>
               </section>
               <section class="login_verification">
-                <input type="tel" maxlength="8" placeholder="验证码">
+                <input v-model="phoneCode" type="tel" maxlength="8" placeholder="验证码">
               </section>
               <section class="login_hint">
                 温馨提示：未注册硅谷外卖帐号的手机号，登录时将自动注册，且代表已同意
                 <a href="javascript:">《用户服务协议》</a>
               </section>
             </div>
+            
             <div :class="{on: !isMsgLogin}">
               <section>
                 <section class="login_message">
-                  <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名">
+                  <input v-model="userName" type="tel" maxlength="11" placeholder="手机/邮箱/用户名">
                 </section>
                 <section class="login_verification">
-                  <input type="tel" maxlength="8" placeholder="密码">
-                  <div class="switch_button" :class="showNumber" @click="toggleShow">
-                    <div class="switch_circle"></div>
-                    <span class="switch_text">...</span>
+                  <input v-model="userPWD" :type="showNumber?'text':'password'" maxlength="8" placeholder="密码">
+                  <div class="switch_button" :class="showNumber?'on':'off'" @click="showNumber=!showNumber">
+                    <div class="switch_circle" :class="{right: showNumber}"></div>
+                    <span class="switch_text">{{showNumber?"abc":"..."}}</span>
                   </div>
                 </section>
                 <section class="login_message">
-                  <input type="text" maxlength="11" placeholder="验证码">
-                  <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+                  <input v-model="captcha"  type="text" maxlength="11" placeholder="验证码">
+                  <img @click.prevent="requestCaptcha" src="http://localhost:5000/captcha" ref="captcha" class="get_verification"  alt="captcha">
                 </section>
               </section>
             </div>
-            <button class="login_submit">登录</button>
+            
+            <button class="login_submit" @click.prevent="loginBtn">登录</button>
           </form>
+          
           <a href="javascript:" class="about_us">关于我们</a>
         </div>
         <a href="javascript:" class="go_back" @click="toPage">
@@ -53,28 +63,120 @@
 </template>
 
 <script>
+  import {Toast} from "mint-ui"
+  import {requestSendCode, requestSmsLogin, requestPwdLogin} from "../../api"
   export default {
     name: 'LoginRegister',
-    components: {
-    },
+    
     data () {
       return {
         isMsgLogin: true,
-        showNumber: "off"
+        
+        thirtySecond: 0,
+        isWaiting: false,
+        
+        showNumber: false,
+  
+        user_phone: "",
+        phoneCode: "",
+        userName: "",
+        userPWD: "",
+        captcha: "",
       }
     },
+    
+    computed: {
+      isRightPhone () {
+        return /^1\d{10}/.test(this.user_phone);
+      }
+    },
+    
     methods: {
       toPage () {
         this.$router.back();
       },
-      toggleShow (){
-        const point = document.querySelector(".switch_button .switch_circle");
-        if(this.showNumber==="on"){
-          point.style.left = -1 + "px";
-          this.showNumber = "off";
+      
+      async waiting_30 () {
+        if(!this.isWaiting){
+          this.thirtySecond = 30
+          this.isWaiting = true
+          await requestSendCode(this.user_phone)
+          let timerId = setInterval(()=>{
+            this.thirtySecond--
+            if(this.thirtySecond <= 0){
+              this.isWaiting = false
+              clearInterval(timerId)
+            }
+          }, 1000)
+        }
+      },
+      
+      requestCaptcha () {
+        this.$refs.captcha.src = "http://localhost:5000/captcha?curTime="+Date.now()
+      },
+      
+      async loginBtn () {
+        let shouldAjax = true
+        const {isMsgLogin, isRightPhone, user_phone, phoneCode, userName, userPWD, captcha} = this
+        let result = null
+        
+        if(isMsgLogin){
+          if(!isRightPhone){
+            Toast({
+              message: "必须输入正确的手机号码",
+              className: 'myClass'
+            })
+            this.user_phone = ""
+            shouldAjax = false
+          }
+          if(!/^\d{6}$/.test(phoneCode)){
+            Toast({
+              message: "必须输入 6 位验证码",
+              className: 'myClass'
+            })
+            shouldAjax = false
+          }
+          if(shouldAjax){
+            result = await requestSmsLogin(user_phone, phoneCode)
+            this.thirtySecond = 0    // 停止计时
+          }
         }else{
-          point.style.left = 25 + "px";
-          this.showNumber = "on";
+          if(!userName.trim()){
+            Toast({
+              message: "必须输入用户名",
+              className: 'myClass'
+            })
+            shouldAjax = false
+          }else if(!userPWD.trim()){
+            Toast({
+              message: "必须输入密码",
+              className: 'myClass'
+            })
+            shouldAjax = false
+          }else if(!captcha.trim()){
+            Toast({
+              message: "必须输入验证码",
+              className: 'myClass'
+            })
+            shouldAjax = false
+          }
+          if(shouldAjax){
+            result = await requestPwdLogin(userName, userPWD, captcha)
+          }
+        }
+        
+        this.phoneCode = ""
+        this.userPWD = ""
+        this.captcha = ""
+        if((result&&result.code) === 0){    // 登录成功
+          const userInfo = result.data
+          await this.$store.dispatch("saveUserInfo", userInfo)
+          this.$router.replace("/personal")
+        }else{
+          Toast({
+            message: "登录失败",
+            className: 'myClass'
+          })
         }
       }
     }
@@ -87,6 +189,8 @@
     width 100%
     height 100%
     background #fff
+    .myClass
+    
     .loginInner
       padding-top 60px
       width 80%
@@ -142,6 +246,8 @@
                 color #ccc
                 font-size 14px
                 background transparent
+                &.black_word
+                  color #000
             .login_verification
               position relative
               margin-top 16px
@@ -170,7 +276,6 @@
                 &.on
                   background #02a774
                 >.switch_circle
-                  //transform translateX(27px)
                   position absolute
                   top -1px
                   left -1px
@@ -181,6 +286,9 @@
                   background #fff
                   box-shadow 0 2px 4px 0 rgba(0,0,0,.1)
                   transition transform .3s
+                  //transform translateX(27px)
+                  &.right
+                    transform translateX(27px)
             .login_hint
               margin-top 12px
               color #999

@@ -71,29 +71,22 @@
         return result
       }
     },
-    // watch: {
-    //   categorysArr () {
-    //     // 在下次 DOM 更新后，再执行回调
-    //     this.$nextTick(()=>{
-    //       const mySwiper = new Swiper('.swiper-container', {
-    //         loop: true,    // 循环模式选项
-    //         pagination: {    // 如果需要分页器
-    //           el: '.swiper-pagination',
-    //         },
-    //       })
-    //     })
-    //   }
-    // },
+    watch: {
+      categorysArr () {
+        // 在下次 DOM 更新后，再执行回调
+        this.$nextTick(()=>{
+          const mySwiper = new Swiper('.swiper-container', {
+            loop: true,    // 循环模式选项
+            pagination: {    // 如果需要分页器
+              el: '.swiper-pagination',
+            },
+          })
+        })
+      }
+    },
     async mounted () {
       await this.$store.dispatch("getPosition")
       await this.$store.dispatch("getCategorys")
-      
-      const mySwiper = new Swiper('.swiper-container', {
-        loop: true,    // 循环模式选项
-        pagination: {    // 如果需要分页器
-          el: '.swiper-pagination',
-        },
-      })
     }
   }
 </script>

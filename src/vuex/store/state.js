@@ -4,5 +4,11 @@ export default {
   
   position: {},
   categorys: [],
-  shops: []
+  
+  shops: [],
+  shopGoods: [],
+  shopRatings: [],
+  shopInfo: {},
+  
+  userInfo: {}
 }

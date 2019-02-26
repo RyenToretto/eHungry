@@ -7,12 +7,14 @@
           <i class="iconfont icon-person"></i>
         </div>
         <div class="user-info">
-          <p class="user-info-top" @click="toPage">登录/注册</p>
+          <p class="user-info-top" @click="toPage">
+            {{userInfo.name?userInfo.name:(userInfo.phone?"":"登录/注册")}}
+          </p>
           <p>
-                <span class="user-icon">
-                  <i class="iconfont icon-shouji icon-mobile"></i>
-                </span>
-            <span class="icon-mobile-number">暂无绑定手机号</span>
+            <span class="user-icon">
+              <i class="iconfont icon-shouji icon-mobile"></i>
+            </span>
+            <span class="icon-mobile-number">{{userInfo.phone?userInfo.phone:"暂无绑定手机号"}}</span>
           </p>
         </div>
         <span class="arrow">
@@ -20,6 +22,7 @@
             </span>
       </a>
     </section>
+    
     <section class="profile_info_data border-1px">
       <ul class="info_data_list">
         <a href="javascript:" class="info_data_link">
@@ -36,6 +39,7 @@
         </a>
       </ul>
     </section>
+    
     <section class="profile_my_order border-1px">
       <!-- 我的订单 -->
       <a href='javascript:' class="my_order">
@@ -74,6 +78,7 @@
         </div>
       </a>
     </section>
+    
     <section class="profile_my_order border-1px">
       <!-- 服务中心 -->
       <a href="javascript:" class="my_order">
@@ -88,17 +93,26 @@
         </div>
       </a>
     </section>
+  
+    <mt-button class="logout_btn" @click.prevent="justLogout">退出登录</mt-button>
   </div>
 </template>
 
 <script>
+  import {mapState} from "vuex"
   export default {
     name: 'Personal',
-    components: {
+    computed: {
+      ...mapState(["userInfo"])
     },
     methods: {
       toPage () {
-        this.$router.push('/login_register');
+        if(!this.userInfo.phone && !this.userInfo.name){
+          this.$router.push('/login_register');
+        }
+      },
+      async justLogout () {
+        await this.$store.dispatch("logout")
       }
     }
   }
@@ -109,6 +123,13 @@
   
   .profile //我的
     width 100%
+    .logout_btn
+      display block
+      width 80%
+      margin 30px auto 0
+      
+      color #fff
+      background-color #02a774
     .profile-number
       margin-top 45.5px
       .profile-link

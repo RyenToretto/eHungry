@@ -12,6 +12,9 @@
     name: 'App',
     components: {
       FooterNav
+    },
+    async mounted () {
+      await this.$store.dispatch('getUserInfo')    // 触发 vuex 的 getUserInfo(), 从后台获取user
     }
   }
 </script>
