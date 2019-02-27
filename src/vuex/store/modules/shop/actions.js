@@ -20,10 +20,11 @@ export default {
       commit(SAVE_SHOPS, result.data)
     }
   },
-  async getShopGoods({commit}){
+  async getShopGoods({commit}, callback){
     const result = await requestGoods()
     if(result.code === 0){
-      commit(SAVE_SHOP_GOODS, result.data)
+      commit(SAVE_SHOP_GOODS, result.data);
+      (typeof callback === "function") && callback()
     }
   },
   async getShopRatings({commit}){
