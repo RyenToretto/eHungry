@@ -94,7 +94,9 @@
       </a>
     </section>
   
-    <mt-button class="logout_btn" @click.prevent="justLogout">退出登录</mt-button>
+    <mt-button class="logout_btn" @click.prevent="justLogout"
+      v-show="$store.state.user.userInfo._id"
+    >退出登录</mt-button>
   </div>
 </template>
 
