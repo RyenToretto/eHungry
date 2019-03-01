@@ -1,8 +1,13 @@
 import {
   SAVE_SHOPS,
+  
   SAVE_SHOP_GOODS,
   SAVE_SHOP_RATINGS,
-  SAVE_SHOP_INFO
+  SAVE_SHOP_INFO,
+  
+  ADD_CART_FOOD_COUNT,
+  DEC_CART_FOOD_COUNT,
+  CLEAR_FOOD_COUNT
 } from "./mutation-type"
 
 import {
@@ -20,6 +25,7 @@ export default {
       commit(SAVE_SHOPS, result.data)
     }
   },
+  
   async getShopGoods({commit}, callback){
     const result = await requestGoods()
     if(result.code === 0){
@@ -38,5 +44,17 @@ export default {
     if(result.code === 0){
       commit(SAVE_SHOP_INFO, result.data)
     }
+  },
+  
+  updateCartFoodCount({commit}, {food, isAdd}){
+    if(isAdd){
+      commit(ADD_CART_FOOD_COUNT, food)
+    }else{
+      commit(DEC_CART_FOOD_COUNT, food)
+    }
+  },
+  
+  clearFoodCount({commit}){
+    commit(CLEAR_FOOD_COUNT)
   }
 }

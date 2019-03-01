@@ -7,11 +7,14 @@ import {Button} from 'mint-ui'
 
 import Star from "./components/Star/Star"
 import Header from "./components/Header/Header"
+import Split from "./components/Split/Split"
 
 import "./mock/mockServer"
+import "./filter"
 
 Vue.component("Star", Star)
 Vue.component("Header", Header)
+Vue.component("Split", Split)
 Vue.component(Button.name, Button)
 
 new Vue({

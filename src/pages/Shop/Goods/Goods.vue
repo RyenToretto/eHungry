@@ -21,7 +21,8 @@
               v-for="(good, index) in shopGoods" :key="index">
             <h1 class="title">{{good.name}}</h1>
             <ul>
-              <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods" :key="index">
+              <li class="food-item bottom-border-1px" @click="showFoodCard(food)"
+                  v-for="(food, index) in good.foods" :key="index">
                 <div class="icon">
                   <img width="57" height="57" :src="food.icon" alt="food.icon">
                 </div>
@@ -36,7 +37,7 @@
                     <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-                    CartControl组件
+                    <CartControl :food="food"></CartControl>
                   </div>
                 </div>
               </li>
@@ -45,19 +46,34 @@
         </ul>
       </div>
     </div>
+    
+    <!--标签对象就是组件对象-->
+    <Food ref="food" :food="food"/>
+  
+    <!--标签对象就是组件对象-->
+    <ShopCart></ShopCart>
   </div>
 </template>
 
 <script>
+  import CartControl from "../../../components/CartControl/CartControl"
+  import ShopCart from "../../../components/ShopCart/ShopCart"
+  import Food from "../../../components/Food/Food"
   import {mapState} from "vuex"
   import BScroll from 'better-scroll'
   
   export default {
     name: 'Goods',
+    components: {
+      CartControl,
+      Food,
+      ShopCart
+    },
     data () {
       return {
         tops: [],
-        scrollY: 0
+        scrollY: 0,
+        food: {}
       }
     },
     computed: {
@@ -116,6 +132,10 @@
         
         this.scrollY = this.tops[index]
         this.rightScroll.scrollToElement(li, 500)
+      },
+      showFoodCard (food) {
+        this.food = food
+        this.$refs.food.toggleShow()
       }
     }
   }
