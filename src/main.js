@@ -12,10 +12,17 @@ import Split from "./components/Split/Split"
 import "./mock/mockServer"
 import "./filter"
 
+import VueLazyLoad from "vue-lazyload"
+import loadingGIF from "./common/img/loading.gif"
+
+Vue.use(VueLazyLoad, {loading: loadingGIF})
+
 Vue.component("Star", Star)
 Vue.component("Header", Header)
 Vue.component("Split", Split)
 Vue.component(Button.name, Button)
+
+Vue.store = store
 
 new Vue({
   el: '#root',

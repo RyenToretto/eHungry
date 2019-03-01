@@ -4,7 +4,7 @@
       <div class="image-header">
         <!--<img :src="food.image">-->
         <!--<img v-if="isShow" v-lazy="food.image">-->
-        <img v-if="isShow" :src="food.image" alt="foodImage">
+        <img v-if="isShow" v-lazy="food.image" alt="foodImage">
         <p class="foodpanel-desc">{{food.info}}</p>
         <div class="back" @click="toggleShow">
           <i class="iconfont icon-arrow_left"></i>

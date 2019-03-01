@@ -10,9 +10,14 @@
 </template>
 
 <script>
+  import Vue from "vue"
   export default {
     name: 'Order',
-    components: {
+    beforeRouteEnter: (to, from, next)=>{
+      if(Vue.store.state.user.userInfo._id){
+        return next()
+      }
+      next("/login_register")
     }
   }
 </script>
